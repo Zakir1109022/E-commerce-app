@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/home/service/product.service';
 import { ToastrService } from 'ngx-toastr';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-product-form',
@@ -26,7 +27,9 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private location: Location
+    
   ) {
     this.productId = this.route.snapshot.params.id;
 
@@ -70,7 +73,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   }
 
   onClickBack():void {
-    this.router.navigate(['./home']);
+    this.location.back();
   }
 
   onClickCancel():void {

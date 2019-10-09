@@ -8,10 +8,13 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CartListComponent } from './cart-list/cart-list.component';
 import { DialogModule } from '../shared/dialog/dialog.module';
 import { DialogComponent } from '../shared/dialog/dialog.component';
+import { ProductFormModule } from '../shared/product-form/product-form.module';
+import { ProductFormComponent } from '../shared/product-form/product-form.component';
 
 
 const routes: Routes = [
-    { path: '', component: CartComponent }
+    { path: '', component: CartComponent },
+    { path: 'edit/:id', component: ProductFormComponent }
 ]
 
 
@@ -22,7 +25,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         CustomMaterialModule,
         ScrollingModule,
-        DialogModule
+        DialogModule,
+        ProductFormModule
     ],
     exports:[],
     entryComponents:[DialogComponent]

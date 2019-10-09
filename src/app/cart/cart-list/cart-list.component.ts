@@ -51,7 +51,7 @@ export class CartListComponent implements OnInit, OnDestroy {
 
 
   onClickEdit(id): void {
-    this.router.navigate(['./home/products/edit/' + id])
+    this.router.navigate(['./cart-list/edit/' + id])
   }
 
   onClickDelete(id): void {
