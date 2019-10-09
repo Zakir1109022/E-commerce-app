@@ -1,0 +1,29 @@
+.add-cart-header{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .add-cart-header > * {
+    width: 100%;
+  }
+
+.back-btn{
+    float: right;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+}
+
+.save-btn{
+  background-color: #ff6a00;
+  color: white;
+}
+
+.cancel-btn{
+  background-color: red;
+  color: white;
+}
+  
+  .error{
+    color: red;
+  }

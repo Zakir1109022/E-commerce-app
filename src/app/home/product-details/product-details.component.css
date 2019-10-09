@@ -1,0 +1,13 @@
+
+.title{
+    width: 150px;
+}
+
+.back-btn{
+    background-color: black;
+    color: white;
+}
+
+.pointer{
+    cursor: pointer !important;
+}

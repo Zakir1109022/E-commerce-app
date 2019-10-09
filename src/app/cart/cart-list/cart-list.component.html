@@ -1,0 +1,37 @@
+<cdk-virtual-scroll-viewport itemSize="150" class="product-list-viewport">
+    <h3 *ngIf="productlist.length==0">No Cart Item</h3>
+    <div *cdkVirtualFor="let product of productlist" class="list">
+        <div class="row product-row">
+            <mat-spinner *ngIf="loader"></mat-spinner>
+            <div class="col-md-2">
+                <label class="font-weight-bold">Img</label> <br />
+                <img class="ml-1 mb-1" [src]="product.image" alt="" height="30px" width="30px">
+            </div>
+            <div class="col-md-2">
+                <label class="font-weight-bold">Product Name</label> <br />
+                <span>{{product?.name}}</span>
+            </div>
+            <div class="col-md-2">
+                <label class="font-weight-bold">Quantity</label> <br />
+                <span>{{product?.quantity}}</span>
+
+            </div>
+            <div class="col-md-2">
+                <label class="font-weight-bold">Size</label> <br />
+                <span>{{product.size[0].name}}</span>
+            </div>
+            <div class="col-md-2">
+                <label class="font-weight-bold">Total Price</label> <br />
+                <span>{{product?.totalPrice}}</span>
+            </div>
+            <div class="col-md-2">
+                <label class="font-weight-bold">Edit/Delete</label> <br />
+                <button class="edit-btn pointer-cursor" mat-raised-button color="primary"
+                    (click)="onClickEdit(product.id)">Edit</button>
+                &nbsp;&nbsp;
+                <button class="delete-btn pointer-cursor" mat-raised-button color="warn"
+                    (click)="onClickDelete(product.id)">Delete</button>
+            </div>
+        </div>
+    </div>
+</cdk-virtual-scroll-viewport>

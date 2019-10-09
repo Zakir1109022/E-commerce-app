@@ -1,0 +1,20 @@
+
+.cart{
+    position: absolute;
+    z-index: 99999;
+    background-color:#ff6a00;
+    right: 3px;
+    width: 370px;
+    top: 61px;
+    color: white;
+}
+
+a {
+    cursor: pointer;
+}
+.emptyDiv{
+  margin: 50px;
+}
+.emptyDiv> h4{
+  text-align: center;
+}

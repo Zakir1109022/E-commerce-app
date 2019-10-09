@@ -1,0 +1,15 @@
+
+<cdk-virtual-scroll-viewport itemSize="100" class="product-list-viewport">
+    <div class="row">
+        <mat-spinner *ngIf="loader"></mat-spinner>
+        <h3 *ngIf="productlist.length==0">Empty Product List</h3>
+        <div *cdkVirtualFor="let product of productlist" class="col-md-3">
+            <mat-card >
+                <img [src]="product?.image" class="md-card-image pointer" alt="product image" width="100%"
+                    height="220px"  />
+                <button class="add-to-cart" mat-button (click)="onClickProductImage(product?.id)">Add to cart</button>
+            </mat-card>
+        </div>
+    </div>
+
+</cdk-virtual-scroll-viewport>
