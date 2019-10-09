@@ -1,8 +1,8 @@
 <cdk-virtual-scroll-viewport itemSize="150" class="product-list-viewport">
     <h3 *ngIf="productlist.length==0">No Cart Item</h3>
+    <mat-spinner *ngIf="loader"></mat-spinner>
     <div *cdkVirtualFor="let product of productlist" class="list">
-        <div class="row product-row">
-            <mat-spinner *ngIf="loader"></mat-spinner>
+        <div class="row product-row pb-2" style="border-bottom: 1px solid gray;">
             <div class="col-md-2">
                 <label class="font-weight-bold">Img</label> <br />
                 <img class="ml-1 mb-1" [src]="product.image" alt="" height="30px" width="30px">

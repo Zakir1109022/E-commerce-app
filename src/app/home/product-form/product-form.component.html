@@ -3,14 +3,14 @@
         <mat-card>
             <mat-card-header class="add-cart-header">
                 <div>
-                    <mat-card-title>Add Product</mat-card-title>
+                    <mat-card-title>{{btn_text}} Product</mat-card-title>
                 </div>
                 <div>
                     <button class="back-btn" mat-raised-button (click)="onClickBack()">Back</button>
                 </div>
             </mat-card-header>
 
-            <form [formGroup]="productForm" (ngSubmit)="save()">
+            <form [formGroup]="productForm">
                 <div class="row">
                     <div class="col-md-12">
                         <mat-form-field style="width: 100%">
@@ -120,7 +120,7 @@
 
                     <div class="col-md-12 mt-4">
                         <button class="save-btn pointer-cursor" [disabled]="!productForm.valid"
-                            mat-raised-button>{{btn_text}}</button>
+                            mat-raised-button (click)="save()">{{btn_text}}</button>
                         &nbsp;&nbsp;
                         <button class="cancel-btn pointer-cursor" mat-raised-button
                             (click)="onClickCancel()">Cancel</button>
