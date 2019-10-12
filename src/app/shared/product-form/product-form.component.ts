@@ -102,10 +102,14 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       this.subcription.push(this.productService.updateProduct(product).subscribe(res => {
         if (res['success']) {
           console.log(res)
-          this.loader=false;
-          this.toastrService.success('Update successful', 'Update', {
-            timeOut: 3000
-          });
+         
+
+          setTimeout(t=>{
+            this.loader=false;
+            this.toastrService.success('Update successful', 'Update', {
+              timeOut: 3000
+            });
+          },2000)
 
         }
       },error=>{
