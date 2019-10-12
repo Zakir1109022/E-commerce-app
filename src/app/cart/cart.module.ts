@@ -3,13 +3,12 @@ import { CartComponent } from './cart.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CustomMaterialModule } from '../shared/custom-material.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CartListComponent } from './cart-list/cart-list.component';
 import { DialogModule } from '../shared/dialog/dialog.module';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 import { ProductFormModule } from '../shared/product-form/product-form.module';
 import { ProductFormComponent } from '../shared/product-form/product-form.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 const routes: Routes = [
@@ -24,7 +23,7 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         CustomMaterialModule,
-        ScrollingModule,
+        InfiniteScrollModule,
         DialogModule,
         ProductFormModule
     ],

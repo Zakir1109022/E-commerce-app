@@ -31,7 +31,8 @@ import {
   MatSelectModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatBadgeModule
 } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
 
@@ -68,7 +69,8 @@ const modules=[
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatBadgeModule
 ]
 
 @NgModule({

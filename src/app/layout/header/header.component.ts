@@ -20,12 +20,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private toastrService:ToastrService
+    private toastrService: ToastrService
   ) {
 
   }
 
   ngOnInit() {
+
+
     this.cartService.cartDataChange.subscribe(res => {
       if (res != null) {
         if (res['change']) {
@@ -50,8 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       else {
         this.cartlist = [];
       }
-    },error=>{
-      this.toastrService.error(error,'Error',{timeOut:3000})
+    }, error => {
+      this.toastrService.error(error, 'Error', { timeOut: 3000 })
     }))
   }
 

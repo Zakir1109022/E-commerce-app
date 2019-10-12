@@ -3,10 +3,13 @@
     position: absolute;
     z-index: 99999;
     background-color:#ff6a00;
-    right: 3px;
     width: 370px;
-    top: 61px;
+    height: 400px;
+    top: 75px;
+    right: 10px;
     color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 a {
@@ -17,4 +20,8 @@ a {
 }
 .emptyDiv> h4{
   text-align: center;
+}
+
+.auto-fix{
+  margin-right: 0 !important;
 }

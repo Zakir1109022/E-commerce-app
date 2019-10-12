@@ -1,7 +1,8 @@
 
 .header{
-    background-color: #232a52 !important;
+    background-color: #fd9d0e !important;
     color: white !important;
+    height: 72px;
 }
 
 #navbarNav li.nav-item a.nav-link{

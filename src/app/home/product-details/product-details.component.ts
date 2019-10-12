@@ -19,6 +19,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   selecterSizePrice: number = 0;
   selecterSize: any;
   quantity: number = 1;
+  loader: boolean = false;
 
   constructor(
     private router: Router,
@@ -36,10 +37,15 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
 
   getProductDetails(): void {
+    this.loader = true;
     this.subcription.push(this.productService.getProductById(this.productId).subscribe(res => {
       console.log(res['success']);
       if (res['success']) {
+
         this.productDetails = res['data'];
+        this.loader = false;
+
+
       }
 
     }, error => {
@@ -64,18 +70,25 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
 
   onClickAddToCart() {
+    this.loader = true;
     this.productDetails.quantity = this.quantity;
     this.productDetails.totalPrice = this.quantity * this.selecterSizePrice;
-    this.productDetails.size=this.productDetails.size.filter(x=>x.id==this.selecterSize.id)
+    this.productDetails.size = this.productDetails.size.filter(x => x.id == this.selecterSize.id)
 
     console.log(this.productDetails);
     this.subcription.push(this.cartService.addToCart(this.productDetails).subscribe(res => {
       if (res['success']) {
-        this.toastrService.success('Successful added to cart', 'Success', {
-          timeOut: 3000
-        });
 
-        this.cartService.changeCartData({ change: true })
+        setTimeout(t => {
+          this.toastrService.success('Successful added to cart', 'Success', {
+            timeOut: 3000
+          });
+
+          this.cartService.changeCartData({ change: true })
+
+          this.loader = false;
+        }, 2000)
+
       }
     }, error => {
       this.toastrService.error(error, 'Error', {

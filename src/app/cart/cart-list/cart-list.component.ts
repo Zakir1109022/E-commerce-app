@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/model/product.model';
 import { CartService } from '../service/cart.service';
+import { PageConfig } from 'src/app/model/page-config.model';
 
 @Component({
   selector: 'app-cart-list',
@@ -17,6 +18,7 @@ export class CartListComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   productlist: Product[] = [];
   loader:boolean=false;
+  pageConfig:PageConfig;
 
   constructor(
     private router: Router,
@@ -26,22 +28,24 @@ export class CartListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.pageConfig=new PageConfig();
+    this.pageConfig.number=1;
+    this.pageConfig.limit=10;
     this.getCartList()
   }
 
 
   getCartList(): void {
     this.loader=true;
-    this.subscription.push(this.cartService.getCartList().subscribe(res => {
+    this.subscription.push(this.cartService.getCartList(this.pageConfig).subscribe(res => {
       console.log(res['success']);
-      if (res['success']) {
-        this.productlist = res['data'];
+      setTimeout(t=>{
+        if (res['success']) {
+          this.productlist =this.productlist.length>0 ? [...this.productlist,... res['data']] : res['data'];
+        }
         this.loader=false;
-      }
-      else {
-        this.productlist = [];
-        this.loader=false;
-      }
+      },2000)
+     
     }, error => {
       this.toastrService.success(error, 'Error', {
         timeOut: 3000
@@ -82,6 +86,11 @@ export class CartListComponent implements OnInit, OnDestroy {
         timeOut: 3000
       });
     });
+  }
+
+  onScroll(){
+   this.pageConfig.number++;
+   this.getCartList();
   }
 
 

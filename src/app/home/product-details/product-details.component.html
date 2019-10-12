@@ -1,4 +1,5 @@
 <div class="row">
+    <mat-spinner *ngIf="loader" class="loader"></mat-spinner>
     <div class="col-md-4">
         <img style="border: 3px solid #ff6a00;" [src]="productDetails?.image" class="md-card-image pointer" alt="product image" width="100%"
             height="300px" />
@@ -37,7 +38,7 @@
             <span>{{ quantity*selecterSizePrice}}</span>
             <br />
             
-            <button mat-raised-button color="primary" class="pointer" [disabled]="selecterSizePrice==0"
+            <button mat-raised-button color="primary" class="add-to-cart pointer" [disabled]="selecterSizePrice==0 || loader"
                 (click)="onClickAddToCart()">Add to cart</button>
             &nbsp;&nbsp; <button class="back-btn" mat-raised-button (click)="onClickBack()">Back</button>
 

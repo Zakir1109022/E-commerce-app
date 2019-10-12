@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { Product } from 'src/app/model/product.model';
+import { PageConfig } from 'src/app/model/page-config.model';
 
 
 
@@ -70,13 +71,16 @@ export class ProductService {
     }
 
 
-    getProductList(): Observable<any> {
+    getProductList(pageConfig?:PageConfig): Observable<any> {
         return new Observable<any>((observer: Observer<any>) => {
             let productList = [];
             let storageProductList = JSON.parse(localStorage.getItem('ProductList'));
             productList = storageProductList != undefined ? storageProductList : [];
+            const startIndex=((pageConfig.number-1)*pageConfig.limit);
+            const endIndex=pageConfig.number*pageConfig.limit;
+             productList=productList.slice(startIndex,endIndex);
 
-            observer.next({ success: true, data: productList })
+            observer.next({ success: true, data: productList})
         })
     }
 

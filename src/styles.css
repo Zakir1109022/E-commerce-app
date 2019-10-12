@@ -6,3 +6,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .pointer{
     cursor: pointer !important;
 }
+
+.loader{
+    position: absolute !important;
+    right: 500px !important;
+    top: 150px !important;
+    z-index: 99999 !important;
+}

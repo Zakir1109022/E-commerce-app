@@ -6,8 +6,12 @@
 .back-btn{
     background-color: black;
     color: white;
+    padding: 5px 30px;
+    border-radius: 25px;
 }
 
-.pointer{
-    cursor: pointer !important;
+
+.add-to-cart{
+    padding: 5px 30px;
+    border-radius: 25px;
 }

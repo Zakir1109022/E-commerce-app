@@ -4,16 +4,17 @@
 
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/home" >Home</a>
+      <a class="nav-link" routerLink="/home">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/cart-list" >Cart List</a>
+      <a class="nav-link" routerLink="/cart-list">Cart List</a>
     </li>
   </ul>
 
   <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-      <span class="pointer" (click)="onClickCartCount(is_showCart)">Cart count ({{getCartItemCount()}})</span>
+    <li class="nav-item pr-5">
+      <mat-icon class="pointer" [matBadge]="getCartItemCount()" matBadgeColor="primary"
+        (click)="onClickCartCount(is_showCart)">add_shopping_cart</mat-icon>
     </li>
 
   </ul>

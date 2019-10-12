@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Product } from 'src/app/model/product.model';
 import { ProductService } from '../service/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { PageConfig } from 'src/app/model/page-config.model';
 
 @Component({
   selector: 'app-product-list',
@@ -16,12 +17,16 @@ export class ProductListComponent implements OnInit {
   subscription: Subscription[] = [];
   productlist: Product[] = [];
   loader:boolean=false;
+  pageConfig:PageConfig=new PageConfig();
   
   constructor(
     private router:Router,
     private productService:ProductService,
     private toastrService:ToastrService
-  ) { }
+  ) { 
+    this.pageConfig.number=1;
+    this.pageConfig.limit=10;
+  }
 
   ngOnInit() {
     this.getProductList()
@@ -30,16 +35,16 @@ export class ProductListComponent implements OnInit {
 
   getProductList():void {
     this.loader=true;
-    this.subscription.push(this.productService.getProductList().subscribe(res => {
+    this.subscription.push(this.productService.getProductList(this.pageConfig).subscribe(res => {
       console.log(res['success']);
-      if (res['success']) {
-        this.productlist = res['data'];
-      }
-      else {
-        this.productlist = [];
-      }
-
-      this.loader=false;
+      
+      setTimeout(t=>{
+        if (res['success']) {
+          this.productlist =this.productlist.length>0 ? [...this.productlist,...res['data']] : res['data'];
+        }
+       
+        this.loader=false;
+      },2000)
     },error=>{
       this.toastrService.error(error,'Error',{timeOut:3000})
 
@@ -50,6 +55,12 @@ export class ProductListComponent implements OnInit {
 
   onClickProductImage(id){
     this.router.navigate(['./home/products/'+id])
+  }
+
+
+  onScroll(){
+   this.pageConfig.number++;
+   this.getProductList();
   }
 
 }

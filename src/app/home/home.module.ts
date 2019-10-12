@@ -8,7 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CustomMaterialModule } from '../shared/custom-material.module';
 import { FormsModule } from '@angular/forms';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ProductFormModule } from '../shared/product-form/product-form.module';
 import { ProductFormComponent } from '../shared/product-form/product-form.component';
 
@@ -27,7 +27,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         CustomMaterialModule,
         FormsModule,
-        ScrollingModule,
+        InfiniteScrollModule,
         ProductFormModule
     ],
     exports:[

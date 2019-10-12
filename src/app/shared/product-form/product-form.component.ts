@@ -20,8 +20,9 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   btn_text:string = 'Save'
   invalid_size:boolean = false;
   img_upload_error: boolean;
-  size_list = [{id:1, name: 'Xl', price: '' }, {id:2, name: 'M', price: '' }, {id:3, name: 'S', price: '' }];
-
+  loader:boolean=false;
+  sizeId:number=0;
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -37,7 +38,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       id: [""],
       name: ["", Validators.required],
       description: ["", Validators.required],
-      size: this.formBuilder.array([]),
+      size: this.formBuilder.array([this.createSize()]),
       image: ["",Validators.required],
       create_date: ["", Validators.required],
       expire_date: ["", Validators.required]
@@ -45,19 +46,16 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const control = <FormArray>this.productForm.get('size');
-    this.size_list.forEach(x => {
-      control.push(this.createSize(x))
-    })
 
     this.initProductForm();
   }
 
-  createSize(size) {
+  createSize() {
+    this.sizeId++;
     return this.formBuilder.group({
-      id: [size.id],
-      name: [size.name, Validators.required],
-      price: [size.price, Validators.required]
+      id: [this.sizeId],
+      name: ["", Validators.required],
+      price: ["", Validators.required]
     });
   }
 
@@ -66,6 +64,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       this.btn_text = 'Update'
       this.productService.getProductById(this.productId).subscribe(res => {
         if (res['success']) {
+
+          let sizeControl = <FormArray>this.productForm.get('size');
+
+          for (let i = 1; i <= res['data'].size.length - 1; i++) {
+            sizeControl.push(this.createSize());
+          }
+
           this.productForm.patchValue(res['data']);
         }
       })
@@ -80,18 +85,31 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.productForm.reset();
   }
 
+  onClickAddSize():void{
+    let sizeControl=<FormArray>this.productForm.get('size');
+    sizeControl.push(this.createSize());
+  }
+
+  onClickRemoveSize(index):void{
+    let sizeControl=<FormArray>this.productForm.get('size');
+    sizeControl.removeAt(index);
+  }
+
   save():void {
+    this.loader=true;
     if (this.productId != undefined) {
       const product = this.productForm.value;
       this.subcription.push(this.productService.updateProduct(product).subscribe(res => {
         if (res['success']) {
           console.log(res)
+          this.loader=false;
           this.toastrService.success('Update successful', 'Update', {
             timeOut: 3000
           });
 
         }
       },error=>{
+        this.loader=false;
         this.toastrService.error(error,'Error',{timeOut:3000})
       }));
 
@@ -110,12 +128,18 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       this.subcription.push(this.productService.addProduct(product).subscribe(res => {
         if (res['success']) {
           console.log(res)
-          this.toastrService.success('Save successful', 'Save', {
-            timeOut: 3000
-          });
+
+          setTimeout(t=>{
+            this.loader=false;
+            this.toastrService.success('Save successful', 'Save', {
+              timeOut: 3000
+            });
+            this.router.navigate(['./cart-list'])
+          },2000)
 
         }
       },error=>{
+        this.loader=false;
         this.toastrService.error(error,'Error',{timeOut:3000})
       }))
     }

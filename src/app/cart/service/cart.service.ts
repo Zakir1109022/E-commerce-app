@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer, BehaviorSubject } from 'rxjs';
 import { Product } from 'src/app/model/product.model';
+import { PageConfig } from 'src/app/model/page-config.model';
 
 
 
@@ -60,11 +61,19 @@ export class CartService {
     }
 
 
-    getCartList(): Observable<any> {
+    getCartList(pageConfig?:PageConfig): Observable<any> {
         return new Observable<any>((observer: Observer<any>) => {
             let CartList = [];
             let storageCartList = JSON.parse(localStorage.getItem('CartList'));
             CartList = storageCartList != undefined ? storageCartList : [];
+
+            if(pageConfig !=undefined)
+            {
+                const startIndex=((pageConfig.number-1)*pageConfig.limit);
+                const endIndex=pageConfig.number*pageConfig.limit;
+                CartList=CartList.slice(startIndex,endIndex);
+            }
+            
 
             observer.next({ success: true, data: CartList })
         })
