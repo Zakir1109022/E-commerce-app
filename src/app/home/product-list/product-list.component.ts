@@ -64,7 +64,7 @@ export class ProductListComponent implements OnInit {
        this.cartService.changeCartData({ change: true,toggleCart:false })
         this.productlist.map(p=>{
           if(p.id==product.id){
-            p['quantity']=res['cartAddedProduct'].quantity;
+            p['quantity']=1;
           }
         })
       }

@@ -36,6 +36,7 @@ export class CartService {
             let cartAddedProduct:Product;
             let storageCartList = JSON.parse(localStorage.getItem('CartList'));
             CartList = storageCartList != undefined ? storageCartList : [];
+            
             CartList.find(x => x.id == product.id)
                 ? CartList.map((p: Product) => {
                     if (p.id == product.id) {
