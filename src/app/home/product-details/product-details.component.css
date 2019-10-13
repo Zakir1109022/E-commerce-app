@@ -1,6 +1,13 @@
 
-.title{
-    width: 150px;
+.product-details{
+    height: 500px;
+}
+.poduct-details-info{
+    background-color: #E7F1F3;
+}
+
+.poduct-details-img{
+    background-color: #E7F1F3;
 }
 
 .back-btn{

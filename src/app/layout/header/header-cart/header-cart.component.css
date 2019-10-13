@@ -1,20 +1,19 @@
 
 .cart{
-    position: absolute;
-    z-index: 99999;
-    background-color:#ff6a00;
-    width: 370px;
-    height: 400px;
-    top: 75px;
-    right: 10px;
-    color: white;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  position: fixed;
+  z-index: 99999;
+  background-color: #fdfafa;
+  width: 370px;
+  height: 400px;
+  top: 82px;
+  right: 16px;
+  color: black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-shadow: 0 0 6px #C3C3C3;
 }
 
-a {
-    cursor: pointer;
-}
+
 .emptyDiv{
   margin: 50px;
 }
@@ -22,6 +21,7 @@ a {
   text-align: center;
 }
 
-.auto-fix{
+.cart-item{
   margin-right: 0 !important;
+  border-bottom: 1px solid #ddd;
 }

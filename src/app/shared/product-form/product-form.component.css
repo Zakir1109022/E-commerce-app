@@ -7,6 +7,10 @@
     width: 100%;
   }
 
+  .ing-upload{
+    background: #26bbad;
+  }
+
 .back-btn{
     float: right;
     background-color: black;
@@ -15,9 +19,10 @@
     border-radius: 25px;
 }
 
+
 .save-btn{
-  background-color: #ff6a00;
-  color: white;
+  background: #26bbad;
+  color: #ffffff;
   padding: 5px 30px;
   border-radius: 25px;
 }

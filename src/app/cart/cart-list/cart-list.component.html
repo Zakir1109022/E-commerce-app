@@ -1,11 +1,14 @@
+<div class="row pb-2">
+    <div class="col-md-12">
+        <button class="add-product" mat-raised-button (click)="onClickAddProduct()">Add Product</button>
+    </div>
+</div>
 
-
-<div class="row pb-2" 
-infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+<div class="row pb-2" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <h3 *ngIf="productlist.length==0 && !loader">No Cart Item</h3>
     <mat-spinner *ngIf="loader" class="loader"></mat-spinner>
     <div *ngFor="let product of productlist" class="col-md-12 list" style="border: 1px solid gray;">
-        <div class="row product-row pb-2" >
+        <div class="row product-row pb-2">
             <div class="col-md-2">
                 <label class="font-weight-bold">Img</label> <br />
                 <img class="ml-1 mb-1" [src]="product.image" alt="" height="30px" width="30px">

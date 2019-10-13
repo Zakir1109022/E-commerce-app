@@ -33,12 +33,21 @@ export class CartService {
     addToCart(product: Product): Observable<any> {
         return new Observable((observer) => {
             let CartList = [];
+            let cartAddedProduct:Product;
             let storageCartList = JSON.parse(localStorage.getItem('CartList'));
             CartList = storageCartList != undefined ? storageCartList : [];
-            CartList.push(product);
+            CartList.find(x => x.id == product.id)
+                ? CartList.map((p: Product) => {
+                    if (p.id == product.id) {
+                        p.quantity = p.quantity + product.quantity;
+                        p.totalPrice = p.size[0].price * p.quantity;
+                        cartAddedProduct=p;
+                    }
+                }) : CartList.push(product);
+
 
             localStorage.setItem('CartList', JSON.stringify(CartList));
-            observer.next({ success: true })
+            observer.next({ success: true,cartAddedProduct:cartAddedProduct })
         });
     }
 
@@ -61,19 +70,21 @@ export class CartService {
     }
 
 
-    getCartList(pageConfig?:PageConfig): Observable<any> {
+
+
+
+    getCartList(pageConfig?: PageConfig): Observable<any> {
         return new Observable<any>((observer: Observer<any>) => {
             let CartList = [];
             let storageCartList = JSON.parse(localStorage.getItem('CartList'));
             CartList = storageCartList != undefined ? storageCartList : [];
 
-            if(pageConfig !=undefined)
-            {
-                const startIndex=((pageConfig.number-1)*pageConfig.limit);
-                const endIndex=pageConfig.number*pageConfig.limit;
-                CartList=CartList.slice(startIndex,endIndex);
+            if (pageConfig != undefined) {
+                const startIndex = ((pageConfig.number - 1) * pageConfig.limit);
+                const endIndex = pageConfig.number * pageConfig.limit;
+                CartList = CartList.slice(startIndex, endIndex);
             }
-            
+
 
             observer.next({ success: true, data: CartList })
         })

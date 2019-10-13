@@ -110,8 +110,8 @@
                     <div class="col-md-12">
                         <label>Upload Image</label>
                         <br />
-                        <input type="file" (change)="readImg($event);">
-
+                        <input class="ing-upload" type="file" (change)="readImg($event);">
+                         &nbsp; &nbsp;
                         <img [src]="productForm.get('image').value" alt="" height="100px" width="100px">
 
                         <p *ngIf="invalid_size" class="error">Maximum Limit 50 KB</p>

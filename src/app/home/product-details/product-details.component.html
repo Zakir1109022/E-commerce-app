@@ -1,50 +1,39 @@
-<div class="row">
+<div class="row product-details">
     <mat-spinner *ngIf="loader" class="loader"></mat-spinner>
-    <div class="col-md-4">
-        <img style="border: 3px solid #ff6a00;" [src]="productDetails?.image" class="md-card-image pointer" alt="product image" width="100%"
-            height="300px" />
+    <div class="col-md-4 poduct-details-img">
+        <img [src]="productDetails?.image" class="md-card-image pointer mt-5" 
+        alt="product image" width="100%" height="400px" />
     </div>
-
-    <div class="col-md-8">
-        <div class="col-md-12 mt-4">
-            <label class="title">Product Name </label>
+    
+    <div class="col-md-8 pl-3 pt-3 poduct-details-info">
+        <div class="info">
             <span>{{productDetails?.name}}</span>
-            <br />
-            <label class="title">Description </label>
+            <hr>
             <span>{{productDetails?.description}}</span>
-            <br />
-            <label class="title">Quantity </label>
-            <mat-icon class="mr-2 pointer" (click)="onClickDecrease()">remove_circle_outline</mat-icon>
-            <mat-form-field style="width: 50px">
-                <input type="number" matInput placeholder="Quantity" [(ngModel)]="quantity">
-            </mat-form-field>
-            <mat-icon class="ml-2 pointer" (click)="onClickIncrease()">add_circle_outline</mat-icon>
-            <br />
-            <label class="title">Size </label>
-            <span>
-
-                <mat-form-field style="width: 100px">
-                    <mat-label>Select size</mat-label>
-                    <mat-select name="size" (selectionChange)="onChangeSize($event.value)">
-                        <mat-option *ngFor="let size of productDetails?.size" [value]="size">
-                            {{size.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-            </span>
-            <br />
-            <label class="title">Price </label>
-            <span>{{ quantity*selecterSizePrice}}</span>
-            <br />
-            
-            <button mat-raised-button color="primary" class="add-to-cart pointer" [disabled]="selecterSizePrice==0 || loader"
-                (click)="onClickAddToCart()">Add to cart</button>
-            &nbsp;&nbsp; <button class="back-btn" mat-raised-button (click)="onClickBack()">Back</button>
-
         </div>
+         <br />
+        <mat-icon class="mr-2 pointer" (click)="onClickDecrease()">remove_circle_outline</mat-icon>
+        <mat-form-field style="width: 50px">
+            <input type="number" matInput placeholder="Quantity" [(ngModel)]="quantity">
+        </mat-form-field>
+        <mat-icon class="ml-2 pointer" (click)="onClickIncrease()">add_circle_outline</mat-icon>
+        <br />
+        <mat-form-field style="width: 100px">
+            <mat-label>Select size</mat-label>
+            <mat-select name="size" (selectionChange)="onChangeSize($event.value)">
+                <mat-option *ngFor="let size of productDetails?.size" [value]="size">
+                    {{size.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br />
+        <span>Price : {{ quantity*selecterSizePrice}}</span>
+        <br /><br />
 
-
-
+        <button mat-raised-button color="primary" class="add-to-cart pointer"
+            [disabled]="selecterSizePrice==0 || loader" (click)="onClickAddToCart()">Add to cart</button>
+        &nbsp;&nbsp; <button class="back-btn" mat-raised-button (click)="onClickBack()">Back</button>
     </div>
+
+
 </div>

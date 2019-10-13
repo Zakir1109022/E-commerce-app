@@ -35,6 +35,10 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
 
+  onClickAddProduct() {
+    this.router.navigate(['./home/add-product'])
+  }
+
   getCartList(): void {
     this.loader=true;
     this.subscription.push(this.cartService.getCartList(this.pageConfig).subscribe(res => {
@@ -74,7 +78,7 @@ export class CartListComponent implements OnInit, OnDestroy {
               timeOut: 3000
             });
 
-            this.cartService.changeCartData({change:true})
+            this.cartService.changeCartData({change:true,toggleCart:true})
 
             this.loader=false;
           }

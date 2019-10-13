@@ -84,7 +84,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
             timeOut: 3000
           });
 
-          this.cartService.changeCartData({ change: true })
+          this.cartService.changeCartData({ change: true ,toggleCart:false})
 
           this.loader = false;
         }, 2000)

@@ -71,16 +71,29 @@ export class ProductService {
     }
 
 
-    getProductList(pageConfig?:PageConfig): Observable<any> {
+    getProductList(pageConfig?: PageConfig): Observable<any> {
         return new Observable<any>((observer: Observer<any>) => {
             let productList = [];
             let storageProductList = JSON.parse(localStorage.getItem('ProductList'));
             productList = storageProductList != undefined ? storageProductList : [];
-            const startIndex=((pageConfig.number-1)*pageConfig.limit);
-            const endIndex=pageConfig.number*pageConfig.limit;
-             productList=productList.slice(startIndex,endIndex);
+            const startIndex = ((pageConfig.number - 1) * pageConfig.limit);
+            const endIndex = pageConfig.number * pageConfig.limit;
+            productList = productList.slice(startIndex, endIndex);
 
-            observer.next({ success: true, data: productList})
+            let cartList = [];
+            let storageCartList = JSON.parse(localStorage.getItem('CartList'));
+            cartList = storageCartList != undefined ? storageCartList : [];
+
+            cartList.length > 0
+                ? productList.map(p => {
+                    if (cartList.find(c => c.id == p.id)) {
+                        let cartItem = cartList.find(c => c.id == p.id);
+                        p.quantity = cartItem.quantity;
+                    }
+                })
+                : productList;
+
+            observer.next({ success: true, data: productList })
         })
     }
 

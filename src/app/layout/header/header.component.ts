@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Product } from 'src/app/model/product.model';
 import { CartService } from 'src/app/cart/service/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   cartItemCount: number = 0;
 
   constructor(
+    private router:Router,
     private cartService: CartService,
     private toastrService: ToastrService
   ) {
@@ -27,11 +29,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.router.events.subscribe(route => {
+      if (route instanceof NavigationStart) {
+        this.onClickCartCount(true);
+      }
+
+    });
+
 
     this.cartService.cartDataChange.subscribe(res => {
       if (res != null) {
         if (res['change']) {
           this.getCartList();
+          this.onClickCartCount(res['toggleCart']);
         }
       }
     })

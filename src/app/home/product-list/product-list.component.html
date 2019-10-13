@@ -7,9 +7,15 @@ infiniteScroll
 <mat-spinner *ngIf="loader" class="loader"></mat-spinner>
     <h3 *ngIf="productlist.length==0 && !loader" class="no-product">No Product Found</h3>
     <div *ngFor="let product of productlist" class="col-md-3">
-        <mat-card>
-            <img [src]="product?.image" class="md-card-image pointer" alt="product image" width="100%" height="220px" />
-            <button class="add-to-cart" mat-button (click)="onClickProductImage(product?.id)">Add to cart</button>
+        <mat-card class="product-card mb-4">
+            <img [src]="product?.image" class="md-card-image pointer mb-1" alt="product image" width="100%" height="220px" />
+            <a *ngIf="product?.quantity">
+              <span class="btn-minus pointer" (click)="onClickMinusQuantity(product)">-</span>
+              <span class="quantity">{{product?.quantity}}</span>
+              <span class="btn-plus pointer" (click)="onClickPlusQuantity(product)">+</span>
+            </a>
+            <button *ngIf="!product?.quantity" class="add-to-cart mb-1" mat-button (click)="onClickAddToCart(product)">Add to cart</button>
+            <button class="view-details-btn" mat-button (click)="onClickViewProduct(product?.id)">View Details</button>
         </mat-card>
     </div>
 </div>

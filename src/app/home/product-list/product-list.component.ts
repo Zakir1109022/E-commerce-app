@@ -5,6 +5,7 @@ import { Product } from 'src/app/model/product.model';
 import { ProductService } from '../service/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { PageConfig } from 'src/app/model/page-config.model';
+import { CartService } from 'src/app/cart/service/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,6 +23,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private router:Router,
     private productService:ProductService,
+    private cartService:CartService,
     private toastrService:ToastrService
   ) { 
     this.pageConfig.number=1;
@@ -53,7 +55,61 @@ export class ProductListComponent implements OnInit {
   }
 
 
-  onClickProductImage(id){
+  onClickAddToCart(product:Product){
+    product.quantity=1;
+    product.totalPrice = product.size[0].price * product.quantity;
+
+    this.subscription.push(this.cartService.addToCart(product).subscribe(res=>{
+      if(res['success']){
+       this.cartService.changeCartData({ change: true,toggleCart:false })
+        this.productlist.map(p=>{
+          if(p.id==product.id){
+            p['quantity']=res['cartAddedProduct'].quantity;
+          }
+        })
+      }
+    })) 
+  }
+
+  onClickPlusQuantity(product:Product){
+    product.quantity=1;
+    product.totalPrice = product.size[0].price * product.quantity;
+
+    this.subscription.push(this.cartService.addToCart(product).subscribe(res=>{
+      if(res['success']){
+       this.cartService.changeCartData({ change: true,toggleCart:false })
+        this.productlist.map(p=>{
+          if(p.id==product.id){
+            p['isAddedToCart']=true;
+            p['quantity']=res['cartAddedProduct'].quantity;
+          }
+        })
+      }
+    })) 
+  }
+
+  onClickMinusQuantity(product:Product){
+    if(product.quantity>1)
+    {
+      product.quantity=-1;
+      product.totalPrice = product.size[0].price * product.quantity;
+  
+      this.subscription.push(this.cartService.addToCart(product).subscribe(res=>{
+        if(res['success']){
+         this.cartService.changeCartData({ change: true,toggleCart:false })
+          this.productlist.map(p=>{
+            if(p.id==product.id){
+              p['isAddedToCart']=true;
+              p['quantity']=res['cartAddedProduct'].quantity;
+            }
+          })
+        }
+      })) 
+    }
+   
+  }
+
+  onClickViewProduct(id){
     this.router.navigate(['./home/products/'+id])
   }
 
